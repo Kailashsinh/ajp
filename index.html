@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ancient India: Maths & Science Quiz</title>
+<style>
+:root{--bg:#fbf6ec;--card:#ffffff;--ink:#2a2118;--mute:#6b5d4d;--line:#e6dcc8;--acc:#c2571a;--accink:#ffffff;--ok:#1f7a45;--okbg:#e3f4ea;--bad:#b3261e;--badbg:#fbe6e4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1511;--card:#251e18;--ink:#f3eadb;--mute:#b5a58f;--line:#3a3027;--acc:#e8844a;--accink:#1a1511;--ok:#6fd19a;--okbg:#17301f;--bad:#ff8a80;--badbg:#3a1b19}}
+:root[data-theme="dark"]{--bg:#1a1511;--card:#251e18;--ink:#f3eadb;--mute:#b5a58f;--line:#3a3027;--acc:#e8844a;--accink:#1a1511;--ok:#6fd19a;--okbg:#17301f;--bad:#ff8a80;--badbg:#3a1b19}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;line-height:1.5}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.7rem;line-height:1.2;margin:8px 0}
+.eyebrow{font:600 .75rem system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+p.sub{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--acc);color:var(--accink);border:0;border-radius:10px;padding:13px 20px;font:600 1rem system-ui,sans-serif;width:100%;margin-top:16px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:6px 0 16px}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.meta{display:flex;justify-content:space-between;font:.85rem system-ui,sans-serif;color:var(--mute)}
+.q{font-size:1.2rem;margin:0 0 14px;line-height:1.4}
+.opt{display:block;width:100%;text-align:left;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:1rem}
+.opt:hover:not(:disabled){border-color:var(--acc)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.opt:disabled{cursor:default;opacity:1}
+.exp{font-size:.95rem;color:var(--mute);border-left:3px solid var(--acc);padding:4px 0 4px 12px;margin-top:6px}
+.score{font-size:3rem;font-weight:700;color:var(--acc);margin:6px 0}
+.rev{border-top:1px solid var(--line);padding:10px 0;font-size:.95rem}
+.rev b{font-family:system-ui,sans-serif}
+.tag-ok{color:var(--ok)}.tag-bad{color:var(--bad)}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="start">
+    <div class="eyebrow">Indian Knowledge Systems • Unit 2</div>
+    <h1>Mathematics & Science in Ancient India</h1>
+    <p class="sub">15 questions based on the project presentation. Tap an answer to see the explanation right away.</p>
+    <div class="card">
+      <p style="margin-top:0">Topics: key thinkers, zero & place value, algebra, geometry, astronomy, trigonometry, metallurgy and global exchange.</p>
+      <button class="btn" id="go">Start Quiz</button>
+    </div>
+  </div>
+
+  <div id="quiz" class="hide">
+    <div class="meta"><span id="num"></span><span id="sc"></span></div>
+    <div class="bar"><i id="fill"></i></div>
+    <div class="card">
+      <p class="q" id="q"></p>
+      <div id="opts"></div>
+      <div class="exp hide" id="exp"></div>
+      <button class="btn hide" id="next">Next</button>
+    </div>
+  </div>
+
+  <div id="end" class="hide">
+    <div class="eyebrow">Result</div>
+    <div class="card" style="text-align:center">
+      <div class="score" id="final"></div>
+      <p id="msg" style="margin:0"></p>
+      <button class="btn" id="again">Try Again</button>
+    </div>
+    <h2 style="font-size:1.1rem;margin:24px 0 4px">Review</h2>
+    <div id="review"></div>
+  </div>
+</div>
+
+<script>
+const Q=[
+{q:"In which year was Aryabhata's Aryabhatiya written?",o:["499 CE","628 CE","1150 CE","300 BCE"],a:0,e:"Aryabhata wrote the Aryabhatiya in 499 CE, a compact verse text on mathematical astronomy."},
+{q:"Who wrote the Brahmasphutasiddhanta (628 CE)?",o:["Aryabhata","Brahmagupta","Bhaskara II","Varahamihira"],a:1,e:"Brahmagupta set out rules for arithmetic with zero and negative numbers in this work."},
+{q:"Which intuitive models were used to explain positive and negative values?",o:["Day and night","Land and water","Fortune and debt","Hot and cold"],a:2,e:"Positive values were explained as fortunes and negative values as debts."},
+{q:"The chakravala method helps solve which kind of problem?",o:["Area of a circle","Difficult integer equations like x² − Ny² = 1","Lunar calendar dates","Altar construction"],a:1,e:"Chakravala repeatedly improves integer solutions, an example of algorithmic thinking."},
+{q:"The Shulba Sutras (Baudhayana) mainly deal with...",o:["Cord-based geometry and altar construction","Poetic metres","Planetary models","Steel making"],a:0,e:"They connected mathematical rules, including the diagonal rule, to practical altar design."},
+{q:"Pingala's Chandahshastra studies patterns in...",o:["Eclipses","Poetic metres and combinatorics","Corrosion","Sine tables"],a:1,e:"Pingala is linked with binary-like patterns and combinatorics in poetic metres."},
+{q:"The Kerala School (Madhava) is known for developing...",o:["Infinite series for trigonometric functions and π","The first calendar","Zinc distillation","The Delhi pillar"],a:0,e:"Madhava and the Kerala School developed infinite series for sine, cosine and π around c. 1400 CE."},
+{q:"In the number 205, what does the zero do?",o:["Makes it negative","Marks the empty tens place","Doubles the number","Shows it is a fraction"],a:1,e:"Place value needs zero to hold the empty tens position, so 205 differs from 25."},
+{q:"What does the Bakhshali Manuscript preserve?",o:["The first sine table","An early placeholder symbol for zero","Instructions for wootz steel","A map of trade routes"],a:1,e:"It preserves an early placeholder symbol for zero; dating details are still debated."},
+{q:"Which value of π is commonly attributed to Aryabhata?",o:["3.0","3.1416","3.2","2.718"],a:1,e:"Aryabhata gave a close approximation to π, commonly stated as 3.1416."},
+{q:"How did Aryabhata explain eclipses?",o:["As shadow events of the Sun, Earth and Moon","As a demon swallowing the Sun","As clouds covering the sky","As changes in the sea"],a:0,e:"He explained eclipses through the shadows of the Sun, Earth and Moon."},
+{q:"The word 'sine' travelled through which languages from jya?",o:["Greek → Latin → French","Sanskrit → Arabic → Latin","Persian → Greek → English","Tamil → Sanskrit → Arabic"],a:1,e:"Sanskrit jya passed through Arabic and Latin to become 'sine'."},
+{q:"Why does the Iron Pillar of Delhi resist corrosion so well?",o:["It is made of gold","It is kept indoors","It developed a stable protective surface layer","It is painted every year"],a:2,e:"Its surface chemistry forms a stable layer that slows further corrosion."},
+{q:"Wootz steel from South India is known as...",o:["Low-carbon bronze","High-carbon crucible steel","A type of brass","Cast copper"],a:1,e:"Wootz was high-carbon crucible steel, prized in long-distance trade."},
+{q:"Which technique enabled metallic zinc production at Zawar?",o:["Downward distillation","Cold hammering","Open-air burning","Electrolysis"],a:0,e:"Downward distillation allowed zinc to be produced at significant scale."}
+];
+const $=id=>document.getElementById(id);
+let i=0,score=0,log=[];
+function show(id){["start","quiz","end"].forEach(x=>$(x).classList.toggle("hide",x!==id));window.scrollTo(0,0)}
+function load(){
+  const d=Q[i];
+  $("num").textContent="Question "+(i+1)+" of "+Q.length;
+  $("sc").textContent="Score: "+score;
+  $("fill").style.width=(i/Q.length*100)+"%";
+  $("q").textContent=d.q;
+  $("exp").classList.add("hide");$("next").classList.add("hide");
+  $("opts").innerHTML="";
+  d.o.forEach((t,k)=>{
+    const b=document.createElement("button");
+    b.className="opt";b.textContent=t;b.onclick=()=>pick(k);
+    $("opts").appendChild(b);
+  });
+}
+function pick(k){
+  const d=Q[i],bs=$("opts").children;
+  [...bs].forEach((b,j)=>{b.disabled=true;if(j===d.a)b.classList.add("ok");else if(j===k)b.classList.add("bad")});
+  if(k===d.a)score++;
+  log.push(k);
+  $("sc").textContent="Score: "+score;
+  $("exp").textContent=d.e;$("exp").classList.remove("hide");
+  $("next").textContent=i===Q.length-1?"See Result":"Next";
+  $("next").classList.remove("hide");
+}
+function finish(){
+  $("fill").style.width="100%";
+  $("final").textContent=score+" / "+Q.length;
+  $("msg").textContent=score>=13?"Excellent! You know this topic really well.":score>=9?"Good job! A quick revision will make it perfect.":"Keep going! Revisit the slides and try again.";
+  $("review").innerHTML=Q.map((d,n)=>{
+    const ok=log[n]===d.a;
+    return '<div class="rev"><b>'+(n+1)+'. '+d.q+'</b><br><span class="'+(ok?'tag-ok':'tag-bad')+'">'+(ok?'Correct':'Your answer: '+d.o[log[n]])+'</span><br>Answer: '+d.o[d.a]+'</div>';
+  }).join("");
+  show("end");
+}
+$("go").onclick=()=>{i=0;score=0;log=[];load();show("quiz")};
+$("next").onclick=()=>{i++;i<Q.length?load():finish()};
+$("again").onclick=()=>{i=0;score=0;log=[];load();show("quiz")};
+</script>
+</body>
+</html>
